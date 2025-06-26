@@ -5,43 +5,39 @@ namespace Domain\Product;
 use App\Http\Controllers\Controller;
 use Domain\Product\Request\CreateProductRequest;
 use Domain\Product\Request\UpdateProductRequest;
-use Illuminate\Contracts\View\View;
-use Illuminate\Http\RedirectResponse;
+use Domain\Product\Resource\ProductResourceCollection;
+use Domain\Product\Resource\ProductShowResource;
+use Illuminate\Http\Response;
 
 class ProductController extends Controller
 {
-    public function index(): View
+    public function index(): ProductResourceCollection
     {
         $products = Product::all();
-        return view('admin.products.index', compact('products'));
+        return new ProductResourceCollection($products);
     }
 
-    public function create(): View
-    {
-        return view('admin.products.create');
-    }
-
-    public function store(CreateProductRequest $request): RedirectResponse
+    public function store(CreateProductRequest $request): ProductShowResource
     {
         $data = $request->validated();
-        Product::create($data);
-        return redirect()->route('admin.products.index');
+        $product = Product::query()->create($data);
+        return new ProductShowResource($product);
     }
 
-    public function edit(Product $product): View
+    public function show(Product $product): ProductShowResource
     {
-        return view('admin.products.edit', compact('product'));
+        return new ProductShowResource($product);
     }
 
-    public function update(UpdateProductRequest $request, Product $product): RedirectResponse
+    public function update(UpdateProductRequest $request, Product $product): ProductShowResource
     {
         $product->update($request->validated());
-        return redirect()->route('admin.products.index');
+        return new ProductShowResource($product);
     }
 
-    public function destroy(Product $product): RedirectResponse
+    public function destroy(Product $product): Response
     {
         $product->delete();
-        return redirect()->route('admin.products.index');
+        return response()->noContent();
     }
 }
