@@ -1,5 +1,7 @@
 <?php
 
+use App\Exceptions\BusinessLogicException;
+use App\Http\Middleware\JsonAccept;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
@@ -12,7 +14,9 @@ $app = Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware) {
-        //
+        $middleware->use([
+            JsonAccept::class
+        ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
         //

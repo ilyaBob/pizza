@@ -2,10 +2,13 @@
 
 namespace Domain\Product\Tests\Feature;
 
-use App\Tests\BaseTest;
+use App\Tests\AdminAuthTestCase;
 use Domain\Product\Product;
+use Domain\User\Enum\RoleEnum;
+use Domain\User\User;
+use Illuminate\Support\Facades\Hash;
 
-class ProductControllerTest extends BaseTest
+class ProductControllerTest extends AdminAuthTestCase
 {
 
     protected function setUp(): void

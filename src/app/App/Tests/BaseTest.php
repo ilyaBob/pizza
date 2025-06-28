@@ -12,10 +12,6 @@ class BaseTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-
-        $this->withHeaders([
-            'Accept' => 'application/json'
-        ]);
     }
 
     public function cleanModel(string $model): void

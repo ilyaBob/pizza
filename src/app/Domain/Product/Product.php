@@ -14,7 +14,8 @@ class Product extends Model
     protected $fillable = [
         'title',
         'description',
-        'price'
+        'price',
+        'type'
     ];
 
     protected static function newFactory(): ProductFactory
