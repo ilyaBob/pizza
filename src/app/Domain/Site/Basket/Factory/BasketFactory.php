@@ -20,7 +20,7 @@ class BasketFactory extends Factory
             'price' => rand(100, 500),
             'product_id' => Product::query()->inRandomOrder()->firstOrFail()->id,
             'quantity' => rand(1, 5),
-            'is_active' => true,
+            'order_id' => null,
         ];
     }
 }

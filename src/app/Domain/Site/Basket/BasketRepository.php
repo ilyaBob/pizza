@@ -20,7 +20,7 @@ class BasketRepository
             $query->where('user_id', $auth);
         }, function ($query) use ($auth) {
             $query->where('session_id', $auth);
-        })->where('is_active', true)->get();
+        })->whereNull('order_id')->get();
 
     }
 
@@ -46,7 +46,6 @@ class BasketRepository
         Basket::query()->updateOrCreate([
             ...$auth,
             'product_id' => $product->id,
-            'is_active' => true
         ], $data);
     }
 
@@ -57,7 +56,7 @@ class BasketRepository
         }, function ($query) use ($auth) {
             $query->where('session_id', $auth);
         })
-            ->where('is_active', true)
+            ->whereNull('order_id')
             ->where('product_id', '!=', $productId)
             ->join('products', 'baskets.product_id', '=', 'products.id')
             ->select('baskets.*', 'products.type')

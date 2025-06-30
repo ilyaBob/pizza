@@ -14,10 +14,10 @@ return new class extends Migration {
             $table->id();
             $table->foreignId('user_id')->nullable();
             $table->string('session_id')->nullable();
+            $table->string('order_id')->nullable();
             $table->foreignId('product_id');
             $table->double('price');
-            $table->integer('quantity')->comment('Количество за ед.');
-            $table->boolean('is_active')->default(true)->comment('Корзина заказана');
+            $table->integer('quantity')->comment('Количество');
 
             $table->timestamps();
             $table->softDeletes();

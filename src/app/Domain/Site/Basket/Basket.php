@@ -17,7 +17,7 @@ class Basket extends Model
         'price',
         'quantity',
         'session_id',
-        'is_active'
+        'order_id'
     ];
 
     protected static function newFactory(): BasketFactory

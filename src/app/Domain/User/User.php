@@ -4,6 +4,8 @@ namespace Domain\User;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Domain\Order\Order;
+use Domain\Site\Basket\Basket;
+use Domain\User\Factory\UserFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -48,10 +50,16 @@ class User extends Authenticatable implements JWTSubject
         ];
     }
 
+    protected static function newFactory(): UserFactory
+    {
+        return new UserFactory();
+    }
+
     public function getJWTIdentifier()
     {
         return $this->getKey(); // Usually the primary key (id)
     }
+
     public function getJWTCustomClaims()
     {
         return [];
@@ -60,5 +68,10 @@ class User extends Authenticatable implements JWTSubject
     public function orders()
     {
         return $this->hasMany(Order::class);
+    }
+
+    public function basket()
+    {
+        return $this->hasMany(Basket::class);
     }
 }
